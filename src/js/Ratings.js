@@ -10,9 +10,12 @@ const Ratings = ({ rating, setRating }) => (
 
         return (
           <div className="rating-wrapper" key={current}>
-            <label className="rating flex items-center justify-center" htmlFor={`rating-${current}`}>
+            <label
+              className="rating flex items-center justify-center"
+              htmlFor={`rating-${current}`}
+            >
               <input
-                className={ current < rating ? 'pseudo-checked' : null}
+                className={current < rating ? "pseudo-checked" : null}
                 name="rating"
                 type="radio"
                 id={`rating-${current}`}

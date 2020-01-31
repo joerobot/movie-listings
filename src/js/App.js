@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { API_KEY, API_BASE_URL } from './api';
+import { API_KEY, API_BASE_URL } from "./api";
 import Ratings from "./Ratings";
 import Genres from "./Genres";
 import Listings from "./Listings";
-
 
 const nowPlayingUrl = `${API_BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=en-US&region=GB&page=1`;
 const genreUrl = `${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
@@ -19,22 +18,22 @@ const App = () => {
   const [error, setError] = useState("");
   const [listings, setListings] = useState([]);
 
-  const fetchData = url => fetch(url).then(res => res.json())
+  const fetchData = url => fetch(url).then(res => res.json());
 
   const getRelevantGenres = ({ results, availableGenres }) => {
     const ids = results.reduce(
       (ids, movie) => [...ids, ...movie.genre_ids],
-      [],
+      []
     );
 
     return [...new Set(ids)].map(genreId =>
-      availableGenres.find(genre => genre.id === genreId),
+      availableGenres.find(genre => genre.id === genreId)
     );
   };
 
   useEffect(() => {
-    Promise.all([nowPlayingUrl, genreUrl].map(fetchData)).then(
-      ([{ results }, { genres: allApiGenres }]) => {
+    Promise.all([nowPlayingUrl, genreUrl].map(fetchData))
+      .then(([{ results }, { genres: allApiGenres }]) => {
         setLoading(false);
 
         const listingsByPopularity = results.sort((a, b) => {
@@ -43,19 +42,21 @@ const App = () => {
           return 0;
         });
 
-        const allRelevantGenres = getRelevantGenres({ results, availableGenres: allApiGenres })
+        const allRelevantGenres = getRelevantGenres({
+          results,
+          availableGenres: allApiGenres
+        });
 
         setAllListings(listingsByPopularity);
         setAllGenres(allRelevantGenres);
 
         setListings(listingsByPopularity);
         setGenres(allRelevantGenres);
-      },
-    )
-    .catch(() => {
-      setLoading(false);
-      setError(`Couldn't fetch necessary data. Please refresh.`)
-    });
+      })
+      .catch(() => {
+        setLoading(false);
+        setError(`Couldn't fetch necessary data. Please refresh.`);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,10 +68,12 @@ const App = () => {
         }
 
         return selectedGenres.every(genre => movie.genre_ids.includes(genre));
-      })
-    setListings(filtered)
-    setGenres(getRelevantGenres({ results: filtered, availableGenres: allGenres }))
-  }, [rating, selectedGenres])
+      });
+    setListings(filtered);
+    setGenres(
+      getRelevantGenres({ results: filtered, availableGenres: allGenres })
+    );
+  }, [rating, selectedGenres]);
 
   const loadingSpinner = (
     <div className="absolute inset-0 flex items-center justify-center h-screen">
@@ -85,17 +88,25 @@ const App = () => {
         <p>{error}</p>
       </div>
     </div>
-  )
+  );
 
   const hasError = error.length !== 0;
 
   return (
     <div>
       <header className="flex items-center justify-center wrapper">
-        <h1 className="text-2xl lg:text-3xl leading-none py-4">Movie Listings</h1>
+        <h1 className="text-2xl lg:text-3xl leading-none py-4">
+          Movie Listings
+        </h1>
       </header>
       <main className="static">
-        {(loading || hasError) ? (hasError ? errorMessage : loadingSpinner) : (
+        {loading || hasError ? (
+          hasError ? (
+            errorMessage
+          ) : (
+            loadingSpinner
+          )
+        ) : (
           <div className="wrapper">
             <h3 className="text-xl">Filter by</h3>
             <div className="bg-navy text-warm p-4">
@@ -110,10 +121,7 @@ const App = () => {
               </form>
             </div>
             <div className="mt-8">
-              <Listings
-                allListings={allListings}
-                listings={listings}
-              />
+              <Listings allListings={allListings} listings={listings} />
             </div>
           </div>
         )}

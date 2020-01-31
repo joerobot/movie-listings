@@ -4,7 +4,7 @@ const Genres = ({ allGenres, genres, selectedGenres, setSelectedGenres }) => (
   <div>
     <h4 className="text-lg">Genre</h4>
     <div className="flex flex-col flex-wrap -mx-2 -my-1 md:flex-row">
-      {allGenres.map((genre) => {
+      {allGenres.map(genre => {
         const { id, name } = genre;
         const checked = selectedGenres.includes(id);
         const disabled = !genres.includes(genre);
@@ -26,7 +26,7 @@ const Genres = ({ allGenres, genres, selectedGenres, setSelectedGenres }) => (
                   }
 
                   return setSelectedGenres(
-                    selectedGenres.filter(genreId => genreId !== id),
+                    selectedGenres.filter(genreId => genreId !== id)
                   );
                 }}
               />

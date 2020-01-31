@@ -5,7 +5,9 @@ const Listings = ({ listings, allListings }) =>
     <h1>No results found for your selection</h1>
   ) : (
     <div>
-      <h4 className="mb-4 text-right">Showing {listings.length} of {allListings.length} movies</h4>
+      <h4 className="mb-4 text-right">
+        Showing {listings.length} of {allListings.length} movies
+      </h4>
       <ul className="listing-grid">
         {listings.map(movie => (
           <li key={movie.id} className="flex flex-col justify-between">

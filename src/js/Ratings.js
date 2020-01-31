@@ -25,10 +25,8 @@ const Ratings = ({ rating, setRating }) => (
                   className="star"
                   points="30 14, 30 12, 21 11, 21 10, 17 3, 15 3, 11 10, 11 11, 2 12, 2 14, 8 20, 8 20, 7 29, 8 30, 16 26, 16 26, 24 30, 24 30, 25 29, 24 20, 24 20"
                   strokeWidth="2"
-                  // fill="#FFDC00"
                 />
               </svg>
-              {/* <span>{current}</span> */}
             </label>
           </div>
         );

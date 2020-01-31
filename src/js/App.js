@@ -19,13 +19,7 @@ const App = () => {
   const [error, setError] = useState("");
   const [listings, setListings] = useState([]);
 
-  const fetchData = url =>
-    fetch(url)
-      .then(res => res.json())
-      .catch(() => {
-        setLoading(false);
-        setError(`Couldn't fetch necessary data`);
-      });
+  const fetchData = url => fetch(url).then(res => res.json())
 
   const getRelevantGenres = ({ results, availableGenres }) => {
     const ids = results.reduce(
@@ -57,7 +51,11 @@ const App = () => {
         setListings(listingsByPopularity);
         setGenres(allRelevantGenres);
       },
-    );
+    )
+    .catch(() => {
+      setLoading(false);
+      setError(`Couldn't fetch necessary data. Please refresh.`)
+    });
   }, []);
 
   useEffect(() => {
@@ -74,17 +72,30 @@ const App = () => {
     setGenres(getRelevantGenres({ results: filtered, availableGenres: allGenres }))
   }, [rating, selectedGenres])
 
+  const loadingSpinner = (
+    <div className="absolute inset-0 flex items-center justify-center h-screen">
+      <span className="loader "></span>
+    </div>
+  );
+
+  const errorMessage = (
+    <div className="absolute inset-0 flex items-center justify-center h-screen">
+      <div className="text-red-700 text-center">
+        <h4 className="text-xl">Error:</h4>
+        <p>{error}</p>
+      </div>
+    </div>
+  )
+
+  const hasError = error.length !== 0;
+
   return (
     <div>
       <header className="flex items-center justify-center wrapper">
         <h1 className="text-2xl lg:text-3xl leading-none py-4">Movie Listings</h1>
       </header>
       <main className="static">
-        {(loading) ? (
-          <div className="absolute inset-0 flex items-center justify-center h-screen">
-            <span className="loader "></span>
-          </div>
-        ) : (
+        {(loading || hasError) ? (hasError ? errorMessage : loadingSpinner) : (
           <div className="wrapper">
             <h3 className="text-xl">Filter by</h3>
             <div className="bg-navy text-warm p-4">

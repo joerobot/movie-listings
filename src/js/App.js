@@ -31,6 +31,7 @@ const App = () => {
     );
   };
 
+  // Will only run once
   useEffect(() => {
     Promise.all([nowPlayingUrl, genreUrl].map(fetchData))
       .then(([{ results }, { genres: allApiGenres }]) => {
@@ -47,6 +48,7 @@ const App = () => {
           availableGenres: allApiGenres
         });
 
+        // Capture all data so we don't need to hit the API again
         setAllListings(listingsByPopularity);
         setAllGenres(allRelevantGenres);
 
@@ -94,12 +96,16 @@ const App = () => {
 
   return (
     <div>
-      <header className="flex items-center justify-center wrapper">
-        <h1 className="text-2xl lg:text-3xl leading-none py-4">
-          Movie Listings
-        </h1>
+      <header className="flex items-center justify-center wrapper text-center">
+        <div>
+          <h1 className="text-2xl lg:text-3xl leading-none py-4">
+            Movie Listings
+          </h1>
+          <p>Use this app to see films that are currently showing in UK cinemas</p>
+        </div>
       </header>
       <main className="static">
+        {/* Show loading spinner or error message if necessary */}
         {loading || hasError ? (
           hasError ? (
             errorMessage
@@ -107,7 +113,7 @@ const App = () => {
             loadingSpinner
           )
         ) : (
-          <div className="wrapper">
+          <div className="wrapper mt-8">
             <h3 className="text-xl">Filter by</h3>
             <div className="bg-navy text-warm p-4">
               <form onSubmit={e => e.preventDefault()}>
@@ -120,7 +126,7 @@ const App = () => {
                 />
               </form>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 pb-8">
               <Listings allListings={allListings} listings={listings} />
             </div>
           </div>

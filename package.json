@@ -11,6 +11,9 @@
   },
   "author": "Joe Reed",
   "license": "ISC",
+  "engines": {
+    "node": ">=12.14.1"
+  },
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

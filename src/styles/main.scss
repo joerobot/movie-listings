@@ -68,16 +68,21 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@supports (width: min(300px, 100%)) {
+@supports (display: grid) {
   .listing-grid {
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 
     > * + * {
       margin-top: auto;
     }
+  }
+}
+
+@supports (width: min(300px, 100%)) {
+  .listing-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   }
 }
 

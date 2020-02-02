@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/js/**/*.{js,jsx}\"",
     "lint": "eslint \"src/js/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html -d public"
   },
   "author": "Joe Reed",
   "repository": {

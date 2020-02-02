@@ -3,7 +3,10 @@ import React from "react";
 const Genres = ({ allGenres, genres, selectedGenres, setSelectedGenres }) => (
   <div>
     <h4 className="text-lg">Genre</h4>
-    <div className="flex flex-col flex-wrap -mx-2 -my-1 md:flex-row">
+    <div
+      className="flex flex-col -mx-2 -my-1 [ md:flex-row md:flex-wrap ] overflow-y-scroll"
+      style={ { maxHeight: '16rem' } }
+    >
       {allGenres.map(genre => {
         const { id, name } = genre;
         const checked = selectedGenres.includes(id);

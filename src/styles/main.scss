@@ -70,12 +70,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @supports (display: grid) {
   .listing-grid {
+    @apply items-stretch;
+
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: 100%;
 
     > * + * {
-      margin-top: auto;
+      @apply mt-0;
     }
   }
 }

@@ -14,5 +14,4 @@ npm i
 npm run dev
 ```
 
-Project should now be available on localhost:1234
-
+Project should now be available on <http://localhost:1234>

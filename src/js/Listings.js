@@ -10,13 +10,13 @@ const Listings = ({ listings, allListings }) =>
       </h4>
       <ul className="listing-grid">
         {listings.map(movie => (
-          <li key={movie.id} className="flex flex-col justify-between">
+          <li key={movie.id}>
             <img
               className="block max-w-full mx-auto md:ml-0"
               alt={`Poster for ${movie.title}`}
               src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
             />
-            <h5 className="text-center md:text-left">{movie.title}</h5>
+            <h5 className="text-center leading-none mt-2 md:text-left">{movie.title}</h5>
           </li>
         ))}
       </ul>
